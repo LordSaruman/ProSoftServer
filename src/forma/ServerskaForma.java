@@ -5,9 +5,14 @@
  */
 package forma;
 
+import domen.OpstiDomenskiObjekat;
+import domen.Rezultat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import kontrolor.Kontrolor;
 import model.ModelTabele;
+import niti.NitOsvezivac;
 import server.PokreniServer;
 
 /**
@@ -17,13 +22,14 @@ import server.PokreniServer;
 public class ServerskaForma extends javax.swing.JFrame {
 
     PokreniServer ps;
+
     /**
      * Creates new form ServerskaForma
      */
     public ServerskaForma() {
         initComponents();
         jpanel.setVisible(false);
-        
+        initCustom();
     }
 
     /**
@@ -160,15 +166,32 @@ public class ServerskaForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void serverPokrenut() {
-       txtStatus.setText("Server je pokrenut");
-       btnPokreniServeri.setEnabled(false);
-       btnZaustaviServer.setEnabled(true);
+        new NitOsvezivac(this).start();
+        txtStatus.setText("Server je pokrenut");
+        btnPokreniServeri.setEnabled(false);
+        btnZaustaviServer.setEnabled(true);
     }
 
     public void serverNijePokrenut() {
         txtStatus.setText("Server nije pokrenut");
-       btnPokreniServeri.setEnabled(true);
-       btnZaustaviServer.setEnabled(false);
+        btnPokreniServeri.setEnabled(true);
+        btnZaustaviServer.setEnabled(false);
+    }
+
+    public void osveziFormu() {
+        System.out.println("usao");
+        try {
+            ArrayList<OpstiDomenskiObjekat> list = kontrolor.Kontrolor.getInstance().vratiListu(new Rezultat());
+            ModelTabele modelTabele = (ModelTabele) tabelaPrikaz.getModel();
+            modelTabele.setSpisakRezultata(list);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void initCustom() {
+        tabelaPrikaz.setModel(new ModelTabele(new ArrayList<>()));
+        osveziFormu();
     }
 
 }

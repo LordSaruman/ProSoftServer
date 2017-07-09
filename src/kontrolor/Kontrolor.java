@@ -9,7 +9,9 @@ import domen.OpstiDomenskiObjekat;
 import sistemske.operacije.AbstractSistemskaOperacija;
 
 import java.util.ArrayList;
+import java.util.List;
 import sistemske.operacije.Sacuvaj;
+import sistemske.operacije.SacuvajRezultate;
 import sistemske.operacije.VratiListu;
 
 /**
@@ -32,14 +34,19 @@ public class Kontrolor {
 
     public ArrayList<OpstiDomenskiObjekat> vratiListu(OpstiDomenskiObjekat opstiDomenskiObjekat) throws Exception {
         VratiListu aso = new VratiListu();
-        aso.izvrsiOperaciju(aso);
+        aso.izvrsiOperaciju(opstiDomenskiObjekat);
         return aso.getList();
     }
 
     public OpstiDomenskiObjekat sacuvaj(OpstiDomenskiObjekat opstiDomenskiObjekat) throws Exception {
         AbstractSistemskaOperacija aso = new Sacuvaj();
-        aso.izvrsiOperaciju(aso);
+        aso.izvrsiOperaciju(opstiDomenskiObjekat);
         return opstiDomenskiObjekat;
+    }
+
+    public void sacuvajRezultate(List<OpstiDomenskiObjekat> list) throws Exception {
+        AbstractSistemskaOperacija aso = new SacuvajRezultate();
+        aso.izvrsiOperaciju(list);
     }
 
 }

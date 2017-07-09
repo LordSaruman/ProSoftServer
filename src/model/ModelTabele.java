@@ -5,6 +5,8 @@
  */
 package model;
 
+import domen.OpstiDomenskiObjekat;
+import domen.Rezultat;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -12,23 +14,51 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author filip_000
  */
-public class ModelTabele extends AbstractTableModel{
+public class ModelTabele extends AbstractTableModel {
+
+    String kolone[] = new String[]{"Rang", "Tim", "Turnir", "Ruzultat"};
+    ArrayList<OpstiDomenskiObjekat> spisakRezultata;
+
+    public ModelTabele(ArrayList<OpstiDomenskiObjekat> spisakRezultata) {
+        this.spisakRezultata = spisakRezultata;
+    }
 
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return spisakRezultata.size();
     }
 
     @Override
     public int getColumnCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return kolone.length;
     }
 
     @Override
-    public Object getValueAt(int i, int i1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getColumnName(int column) {
+        return kolone[column];
     }
 
-    
-    
+    @Override
+    public Object getValueAt(int row, int column) {
+        Rezultat rezultat = (Rezultat) spisakRezultata.get(row);
+
+        switch (column) {
+            case 0:
+                return row + 1;
+            case 1:
+                return rezultat.getTim().getNaziv();
+            case 2:
+                return rezultat.getTurnir();
+            case 3:
+                return rezultat.getRezultat();
+            default:
+                return "N/A";
+        }
+    }
+
+    public void setSpisakRezultata(ArrayList<OpstiDomenskiObjekat> spisakRezultata) {
+        this.spisakRezultata = spisakRezultata;
+        fireTableDataChanged();
+    }
+
 }

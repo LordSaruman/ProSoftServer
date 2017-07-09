@@ -9,6 +9,7 @@ import domen.Korisnik;
 import domen.Lokacija;
 import domen.OpstiDomenskiObjekat;
 import domen.Region;
+import domen.Rezultat;
 import domen.Serija;
 import domen.Tim;
 import domen.Turnir;
@@ -20,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -85,11 +87,9 @@ public class DBBroker {
         }
     }
 
-
-
     public ArrayList<OpstiDomenskiObjekat> vratiListu(OpstiDomenskiObjekat odo) throws SQLException, Exception {
         try {
-            String sql = "SELECT * FROM "+odo.vratiNazivTabele();
+            String sql = "SELECT * FROM " + odo.vratiJoin();
             Statement s = konekcija.createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -291,8 +291,8 @@ public class DBBroker {
         }
         return listaTurnira;
     }
-    
-        public ArrayList<Korisnik> getListuKorisnika() throws Exception {
+
+    public ArrayList<Korisnik> getListuKorisnika() throws Exception {
         ArrayList<Korisnik> listaK = new ArrayList<>();
         try {
             String sql = "SELECT * FROM korisnik";
@@ -313,5 +313,28 @@ public class DBBroker {
             throw new Exception("Neuspesno vadjenje podataka o korisniku", e);
         }
         return listaK;
+    }
+
+    public void sacuvajRezultat(Rezultat rezultat, int id) throws SQLException {
+        try {
+            String sql;
+//            int korisnikId = rezultat.getKorisnik().getIdKorisnika();
+            int korisnikId = 1;
+            if (rezultat.getIdRezultat() != 0) {
+                sql = String.format("UPDATE rezultat SET rezultat = '%s' WHERE idtima=%d and idturnira=%d and idrezultat=%d",
+                        rezultat.getRezultat(), rezultat.getTim().getIdTima(), rezultat.getTurnir().getIdTurnira(), rezultat.getIdRezultat());
+            } else {
+                sql = String.format("insert into rezultat values(%d,%d,%d,%d,'%s')",
+                        rezultat.getTim().getIdTima(), rezultat.getTurnir().getIdTurnira(), id,
+                        korisnikId, rezultat.getRezultat());
+            }
+
+            Statement statement = konekcija.createStatement();
+            statement.executeUpdate(sql);
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
     }
 }

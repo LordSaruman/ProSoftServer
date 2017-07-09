@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import kontrolor.Kontrolor;
@@ -18,6 +19,7 @@ import operacije.Operacija;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
 import transfer.StatusZahteva;
+
 /**
  *
  * @author filip_000
@@ -43,15 +45,19 @@ public class ObradaKlijentskihZahteva extends Thread {
                         OpstiDomenskiObjekat listaODO = Kontrolor.getInstance().sacuvaj((OpstiDomenskiObjekat) kz.getParametar());
                         so.setOdgovor(listaODO);
                         break;
-                    
+
                     case Operacija.VRATI_LISTU:
                         ArrayList<OpstiDomenskiObjekat> listaD = Kontrolor.getInstance().vratiListu((OpstiDomenskiObjekat) kz.getParametar());
                         so.setOdgovor(listaD);
                         break;
+
+                    case Operacija.SACUVAJ_REZULTATE:
+                        Kontrolor.getInstance().sacuvajRezultate((List<OpstiDomenskiObjekat>) kz.getParametar());
+                        break;
                 }
                 so.setStatusZahteva(StatusZahteva.USPESAN_ZAHTEV);
             } catch (Exception exception) {
-                
+
                 so.setStatusZahteva(StatusZahteva.NEUSPESAN_ZAHTEV);
             }
             posaljiOdgovor(so);
