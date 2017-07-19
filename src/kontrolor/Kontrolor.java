@@ -5,6 +5,7 @@
  */
 package kontrolor;
 
+import domen.Korisnik;
 import domen.OpstiDomenskiObjekat;
 import sistemske.operacije.AbstractSistemskaOperacija;
 
@@ -21,7 +22,8 @@ import sistemske.operacije.VratiListu;
 public class Kontrolor {
 
     private static Kontrolor instance;
-
+    private ArrayList<OpstiDomenskiObjekat> listaUlogovanihKorisnika = null;
+    
     private Kontrolor() {
     }
 
@@ -47,6 +49,18 @@ public class Kontrolor {
     public void sacuvajRezultate(List<OpstiDomenskiObjekat> list) throws Exception {
         AbstractSistemskaOperacija aso = new SacuvajRezultate();
         aso.izvrsiOperaciju(list);
+    }
+
+    public ArrayList<OpstiDomenskiObjekat> vratiListuUlogovanihKorisnika(Korisnik korisnik) {
+        return listaUlogovanihKorisnika;
+    }
+
+    public void sacuvajListuUlogovanihKorisnika(List<OpstiDomenskiObjekat> list) {
+        for (OpstiDomenskiObjekat odo : list) {
+            if (!listaUlogovanihKorisnika.contains(odo)) {
+                listaUlogovanihKorisnika.add(odo);
+            }
+        }
     }
 
 }

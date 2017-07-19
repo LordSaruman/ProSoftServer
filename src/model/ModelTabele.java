@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ModelTabele extends AbstractTableModel {
 
-    String kolone[] = new String[]{"Rang", "Tim", "Turnir", "Ruzultat"};
+    String kolone[] = new String[]{"Rank", "Team", "Tournament", "Result"};
     ArrayList<OpstiDomenskiObjekat> spisakRezultata;
 
     public ModelTabele(ArrayList<OpstiDomenskiObjekat> spisakRezultata) {
