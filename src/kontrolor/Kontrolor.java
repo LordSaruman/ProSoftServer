@@ -22,9 +22,10 @@ import sistemske.operacije.VratiListu;
 public class Kontrolor {
 
     private static Kontrolor instance;
-    private ArrayList<OpstiDomenskiObjekat> listaUlogovanihKorisnika = null;
+    private ArrayList<OpstiDomenskiObjekat> listaUlogovanihKorisnika;
     
     private Kontrolor() {
+        listaUlogovanihKorisnika = new ArrayList<>();
     }
 
     public static Kontrolor getInstance() {
