@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 package kontrolor;
-
 import domen.OpstiDomenskiObjekat;
 import sistemske.operacije.AbstractSistemskaOperacija;
-
 import java.util.ArrayList;
 import java.util.List;
 import sistemske.operacije.Sacuvaj;

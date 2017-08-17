@@ -13,6 +13,7 @@ import domen.Rezultat;
 import domen.Serija;
 import domen.Tim;
 import domen.Turnir;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.DBUtil;
 
 /**
  *
@@ -54,9 +56,13 @@ public class DBBroker {
         }
     }
 
-    public void otvoriKonekciju() {
+    public void otvoriKonekciju() throws IOException {
         try {
-            konekcija = DriverManager.getConnection("jdbc:mysql://localhost:3306/csgobaza", "root", "");
+            DBUtil dBUtil = new DBUtil();
+            String url = dBUtil.vratiUrl();
+            String user = dBUtil.vratiKorisnika();
+            String password = dBUtil.vratiSifru();
+            konekcija = DriverManager.getConnection(url,user,password);
             konekcija.setAutoCommit(false);
         } catch (SQLException ex) {
             System.err.println("Nije otvorena konekcija");

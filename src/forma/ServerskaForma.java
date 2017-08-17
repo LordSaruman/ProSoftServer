@@ -179,7 +179,7 @@ public class ServerskaForma extends javax.swing.JFrame {
     }
 
     public void osveziFormu() {
-        System.out.println("usao");
+        System.out.println("Usao");
         try {
             ArrayList<OpstiDomenskiObjekat> list = kontrolor.Kontrolor.getInstance().vratiListu(new Rezultat());
             ModelTabele modelTabele = (ModelTabele) tabelaPrikaz.getModel();
