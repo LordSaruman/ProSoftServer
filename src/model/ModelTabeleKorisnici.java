@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ModelTabeleKorisnici extends AbstractTableModel{
 
-    String kolone[] = new String[]{"Name of The User", "Username of The User", "Username"};
+    String kolone[] = new String[]{"Name of The User", "Surname of The User", "Username"};
     ArrayList<OpstiDomenskiObjekat> spisakKorisnika;
 
     public ModelTabeleKorisnici(ArrayList<OpstiDomenskiObjekat> spisakKorisnika) {
