@@ -48,21 +48,22 @@ public class ServerskaForma extends javax.swing.JFrame {
         jpanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaPrikaz = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Poruka: ");
 
-        txtStatus.setText("Server nije pokrenut");
+        txtStatus.setText("Server is not started.");
 
-        btnPokreniServeri.setText("Pokreni server");
+        btnPokreniServeri.setText("Start a Server");
         btnPokreniServeri.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPokreniServeriActionPerformed(evt);
             }
         });
 
-        btnZaustaviServer.setText("Zaustavi Server");
+        btnZaustaviServer.setText("Stop a Server");
         btnZaustaviServer.setEnabled(false);
         btnZaustaviServer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,11 +84,20 @@ public class ServerskaForma extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabelaPrikaz);
 
+        jButton1.setText("Configure a Database");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpanelLayout = new javax.swing.GroupLayout(jpanel);
         jpanel.setLayout(jpanelLayout);
         jpanelLayout.setHorizontalGroup(
             jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 399, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1))
             .addGroup(jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpanelLayout.createSequentialGroup()
                     .addContainerGap()
@@ -96,7 +106,10 @@ public class ServerskaForma extends javax.swing.JFrame {
         );
         jpanelLayout.setVerticalGroup(
             jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 110, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelLayout.createSequentialGroup()
+                .addContainerGap(149, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
             .addGroup(jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpanelLayout.createSequentialGroup()
                     .addGap(5, 5, 5)
@@ -119,7 +132,7 @@ public class ServerskaForma extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnPokreniServeri)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
                                 .addComponent(btnZaustaviServer))
                             .addComponent(jpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(12, 12, 12)))
@@ -155,9 +168,17 @@ public class ServerskaForma extends javax.swing.JFrame {
         jpanel.setVisible(false);
     }//GEN-LAST:event_btnZaustaviServerActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        KonfiguracijaBaze kb = new KonfiguracijaBaze(this, true);
+        kb.pack();
+        kb.setLocationRelativeTo(null);
+        kb.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPokreniServeri;
     private javax.swing.JButton btnZaustaviServer;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpanel;
@@ -167,13 +188,13 @@ public class ServerskaForma extends javax.swing.JFrame {
 
     public void serverPokrenut() {
         new NitOsvezivac(this).start();
-        txtStatus.setText("Server je pokrenut");
+        txtStatus.setText("Server has been started.");
         btnPokreniServeri.setEnabled(false);
         btnZaustaviServer.setEnabled(true);
     }
 
     public void serverNijePokrenut() {
-        txtStatus.setText("Server nije pokrenut");
+        txtStatus.setText("Server has not been started");
         btnPokreniServeri.setEnabled(true);
         btnZaustaviServer.setEnabled(false);
     }

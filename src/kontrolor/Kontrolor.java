@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package kontrolor;
+import domen.DatabaseParameters;
 import domen.OpstiDomenskiObjekat;
 import sistemske.operacije.AbstractSistemskaOperacija;
 import java.util.ArrayList;
@@ -45,6 +46,14 @@ public class Kontrolor {
     public void sacuvajRezultate(List<OpstiDomenskiObjekat> list) throws Exception {
         AbstractSistemskaOperacija aso = new SacuvajRezultate();
         aso.izvrsiOperaciju(list);
+    }
+
+    public DatabaseParameters vratiParametre() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void sacuvajParametre(DatabaseParameters databaseParameters) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
