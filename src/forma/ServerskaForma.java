@@ -8,10 +8,8 @@ package forma;
 import domen.OpstiDomenskiObjekat;
 import domen.Rezultat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import kontrolor.Kontrolor;
 import model.ModelTabele;
+import model.ModelTabeleKorisnici;
 import niti.NitOsvezivac;
 import server.PokreniServer;
 
@@ -48,7 +46,10 @@ public class ServerskaForma extends javax.swing.JFrame {
         jpanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaPrikaz = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnDatabase = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaServerKorisnici = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,14 +57,14 @@ public class ServerskaForma extends javax.swing.JFrame {
 
         txtStatus.setText("Server is not started.");
 
-        btnPokreniServeri.setText("Start a Server");
+        btnPokreniServeri.setText("Start Server");
         btnPokreniServeri.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPokreniServeriActionPerformed(evt);
             }
         });
 
-        btnZaustaviServer.setText("Stop a Server");
+        btnZaustaviServer.setText("Stop Server");
         btnZaustaviServer.setEnabled(false);
         btnZaustaviServer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,20 +85,42 @@ public class ServerskaForma extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabelaPrikaz);
 
-        jButton1.setText("Configure a Database");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDatabase.setText("Database configuration");
+        btnDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDatabaseActionPerformed(evt);
             }
         });
+
+        tabelaServerKorisnici.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tabelaServerKorisnici);
+
+        jLabel2.setText("Currently logged in users in system:");
 
         javax.swing.GroupLayout jpanelLayout = new javax.swing.GroupLayout(jpanel);
         jpanel.setLayout(jpanelLayout);
         jpanelLayout.setHorizontalGroup(
             jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1))
+            .addGroup(jpanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDatabase, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(jpanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpanelLayout.createSequentialGroup()
                     .addContainerGap()
@@ -107,8 +130,12 @@ public class ServerskaForma extends javax.swing.JFrame {
         jpanelLayout.setVerticalGroup(
             jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelLayout.createSequentialGroup()
-                .addContainerGap(149, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addContainerGap(160, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(btnDatabase)
                 .addContainerGap())
             .addGroup(jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpanelLayout.createSequentialGroup()
@@ -124,19 +151,21 @@ public class ServerskaForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtStatus))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtStatus))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
                                 .addComponent(btnPokreniServeri)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
-                                .addComponent(btnZaustaviServer))
-                            .addComponent(jpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(12, 12, 12)))
-                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnZaustaviServer)))
+                        .addGap(28, 28, 28))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,27 +197,30 @@ public class ServerskaForma extends javax.swing.JFrame {
         jpanel.setVisible(false);
     }//GEN-LAST:event_btnZaustaviServerActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatabaseActionPerformed
         KonfiguracijaBaze kb = new KonfiguracijaBaze(this, true);
         kb.pack();
         kb.setLocationRelativeTo(null);
         kb.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnDatabaseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDatabase;
     private javax.swing.JButton btnPokreniServeri;
     private javax.swing.JButton btnZaustaviServer;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpanel;
     private javax.swing.JTable tabelaPrikaz;
+    private javax.swing.JTable tabelaServerKorisnici;
     private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 
     public void serverPokrenut() {
         new NitOsvezivac(this).start();
-        txtStatus.setText("Server has been started.");
+        txtStatus.setText("Server has been started");
         btnPokreniServeri.setEnabled(false);
         btnZaustaviServer.setEnabled(true);
     }
@@ -200,7 +232,7 @@ public class ServerskaForma extends javax.swing.JFrame {
     }
 
     public void osveziFormu() {
-        System.out.println("Usao");
+        System.out.println("usao");
         try {
             ArrayList<OpstiDomenskiObjekat> list = kontrolor.Kontrolor.getInstance().vratiListu(new Rezultat());
             ModelTabele modelTabele = (ModelTabele) tabelaPrikaz.getModel();
@@ -212,6 +244,7 @@ public class ServerskaForma extends javax.swing.JFrame {
 
     private void initCustom() {
         tabelaPrikaz.setModel(new ModelTabele(new ArrayList<>()));
+        tabelaServerKorisnici.setModel(new ModelTabeleKorisnici(new ArrayList<>()));
         osveziFormu();
     }
 

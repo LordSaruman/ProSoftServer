@@ -4,14 +4,18 @@
  * and open the template in the editor.
  */
 package kontrolor;
+
 import domen.DatabaseParameters;
+import domen.Korisnik;
 import domen.OpstiDomenskiObjekat;
+import java.io.IOException;
 import sistemske.operacije.AbstractSistemskaOperacija;
 import java.util.ArrayList;
 import java.util.List;
 import sistemske.operacije.Sacuvaj;
 import sistemske.operacije.SacuvajRezultate;
 import sistemske.operacije.VratiListu;
+import util.DBUtil;
 
 /**
  *
@@ -20,8 +24,10 @@ import sistemske.operacije.VratiListu;
 public class Kontrolor {
 
     private static Kontrolor instance;
+    private ArrayList<OpstiDomenskiObjekat> listaUlogovanihKorisnika;
 
     private Kontrolor() {
+        listaUlogovanihKorisnika = new ArrayList<>();
     }
 
     public static Kontrolor getInstance() {
@@ -48,12 +54,35 @@ public class Kontrolor {
         aso.izvrsiOperaciju(list);
     }
 
-    public DatabaseParameters vratiParametre() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DatabaseParameters vratiParametre() throws IOException {
+        DBUtil dBUtil = new DBUtil();
+        String url = dBUtil.vratiUrl();
+        String username = dBUtil.vratiKorisnika();
+        String password = dBUtil.vratiSifru();
+        
+        return new DatabaseParameters(url, username, password);
     }
 
-    public void sacuvajParametre(DatabaseParameters databaseParameters) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void sacuvajParametre(DatabaseParameters databaseParameters) throws IOException {
+
+        DBUtil dBUtil = new DBUtil();
+        dBUtil.postaviParametre(
+                databaseParameters.getURL(),
+                databaseParameters.getUsername(),
+                databaseParameters.getPassword()
+        );
+    }
+
+    public ArrayList<OpstiDomenskiObjekat> vratiListuUlogovanihKorisnika(Korisnik korisnik) {
+        return listaUlogovanihKorisnika;
+    }
+
+    public void sacuvajListuUlogovanihKorisnika(List<OpstiDomenskiObjekat> list) {
+        for (OpstiDomenskiObjekat odo : list) {
+            if (!listaUlogovanihKorisnika.contains(odo)) {
+                listaUlogovanihKorisnika.add(odo);
+            }
+        }
     }
 
 }
