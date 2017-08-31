@@ -62,7 +62,7 @@ public class DBBroker {
             String url = dBUtil.vratiUrl();
             String user = dBUtil.vratiKorisnika();
             String password = dBUtil.vratiSifru();
-            konekcija = DriverManager.getConnection(url,user,password);
+            konekcija = DriverManager.getConnection(url, user, password);
             konekcija.setAutoCommit(false);
         } catch (SQLException ex) {
             System.err.println("Nije otvorena konekcija");
@@ -235,6 +235,34 @@ public class DBBroker {
             listaTimova.add(naziv);
         }
         return listaTimova;
+    }
+
+    public ArrayList<String> getListuSponzora() throws SQLException {
+        ArrayList<String> listaSponzora = new ArrayList<>();
+        String sql = "SELECT * FROM tim join region on tim.idRegiona = region.idRegiona join lokacija on tim.idLokacije = lokacija.idLokacije";
+
+        Statement s = konekcija.createStatement();
+        ResultSet rs = s.executeQuery(sql);
+
+        while (rs.next()) {
+            String sponzor = rs.getString("sponzor");
+            listaSponzora.add(sponzor);
+        }
+        return listaSponzora;
+    }
+
+    public ArrayList<String> getListuIgara() throws SQLException {
+        ArrayList<String> listaIgara = new ArrayList<>();
+        String sql = "SELECT * FROM tim join region on tim.idRegiona = region.idRegiona join lokacija on tim.idLokacije = lokacija.idLokacije";
+
+        Statement s = konekcija.createStatement();
+        ResultSet rs = s.executeQuery(sql);
+
+        while (rs.next()) {
+            String sponzor = rs.getString("igre");
+            listaIgara.add(sponzor);
+        }
+        return listaIgara;
     }
 
     public void sacuvajKorisnika(Korisnik korisnik) throws SQLException {
