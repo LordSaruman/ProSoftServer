@@ -106,11 +106,16 @@ public class DBBroker {
     }
 
     public OpstiDomenskiObjekat sacuvaj(OpstiDomenskiObjekat odo) throws SQLException {
-        String upit = "INSERT INTO " + odo.vratiNazivTabele() + " VALUES (" + odo.vratiVrednostiZaInsert() + ")";
-        Statement statement = konekcija.createStatement();
-        statement.executeUpdate(upit);
-        statement.close();
-        return odo;
+        try {
+            String upit = "INSERT INTO " + odo.vratiNazivTabele() + " VALUES (" + odo.vratiVrednostiZaInsert() + ")";
+            Statement statement = konekcija.createStatement();
+            statement.executeUpdate(upit);
+            statement.close();
+            return odo;
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            throw exception;
+        }
     }
 
     public ArrayList<Region> getListuRegiona() throws SQLException {
@@ -370,5 +375,14 @@ public class DBBroker {
             System.out.println(ex.getMessage());
             throw ex;
         }
+    }
+
+    public boolean obrisiTim(Tim tim) throws SQLException {
+        boolean flag = true;
+        String sqp = "DELETE FROM tim  WHERE `idTima` = " + tim.getIdTima();
+        Statement s = konekcija.createStatement();
+        s.executeUpdate(sqp);
+        s.close();
+        return flag;
     }
 }

@@ -6,6 +6,7 @@
 package server;
 
 import domen.OpstiDomenskiObjekat;
+import domen.Tim;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -57,6 +58,10 @@ public class ObradaKlijentskihZahteva extends Thread {
 
                     case Operacija.PROSLEDI_LISTU_ULOGOVANIH_KORISNIKA:
                         Kontrolor.getInstance().sacuvajListuUlogovanihKorisnika((List<OpstiDomenskiObjekat>) kz.getParametar());
+                        break;
+                        
+                    case Operacija.OBRISI:
+                        Kontrolor.getInstance().obrisiTim((Tim) kz.getParametar());
                         break;
                 }
                 so.setStatusZahteva(StatusZahteva.USPESAN_ZAHTEV);

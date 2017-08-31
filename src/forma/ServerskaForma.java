@@ -5,9 +5,12 @@
  */
 package forma;
 
+import domen.Korisnik;
 import domen.OpstiDomenskiObjekat;
 import domen.Rezultat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import model.ModelTabele;
 import model.ModelTabeleKorisnici;
 import niti.NitOsvezivac;
@@ -240,6 +243,12 @@ public class ServerskaForma extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public void osveziTabeluUlogovanihKorisnika() {
+        ArrayList<OpstiDomenskiObjekat> spisakKorisnika = kontrolor.Kontrolor.getInstance().vratiListuUlogovanihKorisnika(null);
+
+        ((ModelTabeleKorisnici) tabelaServerKorisnici.getModel()).setSpisakKorisnika(spisakKorisnika);
     }
 
     private void initCustom() {

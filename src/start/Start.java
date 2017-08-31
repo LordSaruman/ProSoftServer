@@ -15,6 +15,7 @@ public class Start {
     
     public static void main(String[] args) {
         ServerskaForma sf = new ServerskaForma();
+        kontrolor.Kontrolor.getInstance().setAplikacija(sf);
         sf.setLocationRelativeTo(null);
         sf.setVisible(true);
     }

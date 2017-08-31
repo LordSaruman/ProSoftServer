@@ -8,10 +8,13 @@ package kontrolor;
 import domen.DatabaseParameters;
 import domen.Korisnik;
 import domen.OpstiDomenskiObjekat;
+import domen.Tim;
+import forma.ServerskaForma;
 import java.io.IOException;
 import sistemske.operacije.AbstractSistemskaOperacija;
 import java.util.ArrayList;
 import java.util.List;
+import sistemske.operacije.ObrisiTim;
 import sistemske.operacije.Sacuvaj;
 import sistemske.operacije.SacuvajRezultate;
 import sistemske.operacije.VratiListu;
@@ -25,6 +28,11 @@ public class Kontrolor {
 
     private static Kontrolor instance;
     private ArrayList<OpstiDomenskiObjekat> listaUlogovanihKorisnika;
+    private ServerskaForma aplikacija;
+
+    public void setAplikacija(ServerskaForma aplikacija) {
+        this.aplikacija = aplikacija;
+    }
 
     private Kontrolor() {
         listaUlogovanihKorisnika = new ArrayList<>();
@@ -83,6 +91,12 @@ public class Kontrolor {
                 listaUlogovanihKorisnika.add(odo);
             }
         }
+        aplikacija.osveziTabeluUlogovanihKorisnika();
+    }
+
+    public void obrisiTim(Tim tim) throws Exception {
+        AbstractSistemskaOperacija aso = new ObrisiTim();
+        aso.izvrsiOperaciju(tim);
     }
 
 }
