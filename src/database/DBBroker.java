@@ -357,8 +357,8 @@ public class DBBroker {
     public void sacuvajRezultat(Rezultat rezultat, int id) throws SQLException {
         try {
             String sql;
-//            int korisnikId = rezultat.getKorisnik().getIdKorisnika();
-            int korisnikId = 1;
+            int korisnikId = rezultat.getKorisnik().getIdKorisnika();
+            //int korisnikId = 1;
             if (rezultat.getIdRezultat() != 0) {
                 sql = String.format("UPDATE rezultat SET rezultat = '%s' WHERE idtima=%d and idturnira=%d and idrezultat=%d",
                         rezultat.getRezultat(), rezultat.getTim().getIdTima(), rezultat.getTurnir().getIdTurnira(), rezultat.getIdRezultat());
