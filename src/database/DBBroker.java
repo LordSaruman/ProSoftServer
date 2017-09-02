@@ -379,10 +379,26 @@ public class DBBroker {
 
     public boolean obrisiTim(Tim tim) throws SQLException {
         boolean flag = true;
-        String sqp = "DELETE FROM tim  WHERE `idTima` = " + tim.getIdTima();
+        String sql = "DELETE FROM tim  WHERE `idTima` = " + tim.getIdTima();
         Statement s = konekcija.createStatement();
-        s.executeUpdate(sqp);
+        s.executeUpdate(sql);
         s.close();
         return flag;
+    }
+
+    public boolean izmeniTim(Tim tim) throws SQLException {
+        try {
+        boolean flag = true;
+        String sql = "UPDATE " + tim.vratiNazivTabele() + " SET " + tim.vratiVrednostiZaUpdate() + " WHERE " + tim.vratiWhere();
+            System.out.println(sql);
+        Statement statement = konekcija.createStatement();
+        statement.executeUpdate(sql);
+        statement.close();
+        return flag;
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            
+            throw ex;
+        }
     }
 }

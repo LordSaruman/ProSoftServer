@@ -14,6 +14,7 @@ import java.io.IOException;
 import sistemske.operacije.AbstractSistemskaOperacija;
 import java.util.ArrayList;
 import java.util.List;
+import sistemske.operacije.IzmeniTim;
 import sistemske.operacije.ObrisiTim;
 import sistemske.operacije.Sacuvaj;
 import sistemske.operacije.SacuvajRezultate;
@@ -97,6 +98,11 @@ public class Kontrolor {
     public void obrisiTim(Tim tim) throws Exception {
         AbstractSistemskaOperacija aso = new ObrisiTim();
         aso.izvrsiOperaciju(tim);
+    }
+
+    public void izmeniTim(OpstiDomenskiObjekat opstiDomenskiObjekat) throws Exception {
+        AbstractSistemskaOperacija aso = new IzmeniTim();
+        aso.izvrsiOperaciju(opstiDomenskiObjekat);
     }
 
 }

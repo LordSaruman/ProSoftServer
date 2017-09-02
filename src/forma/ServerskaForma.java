@@ -56,7 +56,7 @@ public class ServerskaForma extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Poruka: ");
+        jLabel1.setText("Status:");
 
         txtStatus.setText("Server is not started.");
 

@@ -59,9 +59,13 @@ public class ObradaKlijentskihZahteva extends Thread {
                     case Operacija.PROSLEDI_LISTU_ULOGOVANIH_KORISNIKA:
                         Kontrolor.getInstance().sacuvajListuUlogovanihKorisnika((List<OpstiDomenskiObjekat>) kz.getParametar());
                         break;
-                        
+
                     case Operacija.OBRISI:
                         Kontrolor.getInstance().obrisiTim((Tim) kz.getParametar());
+                        break;
+                        
+                    case Operacija.IZMENI:
+                        Kontrolor.getInstance().izmeniTim((OpstiDomenskiObjekat) kz.getParametar());
                         break;
                 }
                 so.setStatusZahteva(StatusZahteva.USPESAN_ZAHTEV);
